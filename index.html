@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <title>Test - AngularJS - IE9 Promise Issue</title>
+  <script src="js/angular.min.js"></script>
+  <script src="js/main.js"></script>
+</head>
+
+<body>
+  <div ng-app="mainModule">
+    <div ng-controller="pageController">
+
+      <form ng-submit="testSuccess()">
+        <input
+          type="submit"
+          value="Test success in IE9"
+          >
+      </form>
+
+      <form ng-submit="testFailure()">
+        <input
+          type="submit"
+          value="Test failure in IE9"
+          >
+      </form>
+
+    </div>
+  </div>
+</body>
+
+</html>

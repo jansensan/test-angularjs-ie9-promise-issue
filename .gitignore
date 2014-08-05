@@ -1,0 +1,14 @@
+# Ignore files from git 
+
+# mac osx files
+*._*
+*.DS_STORE
+
+#sublime project files
+*.sublime-project
+*.sublime-workspace
+
+# mockups and resources
+*.psd
+*.ai
+*.indd
