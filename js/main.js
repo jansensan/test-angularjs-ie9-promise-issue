@@ -1,7 +1,7 @@
 angular.module('mainModule', [])
 
 
-.factory('pageService', function ($log, $q) {
+.factory('pageService', function ($log, $q, $http) {
   return {
     getData: function (expectedReply) {
       var deferred = $q.defer();
@@ -10,10 +10,26 @@ angular.module('mainModule', [])
       if (expectedReply) {
         deferred.resolve('Data ipsum');
       } else {
-        deferred.reject('No data');
+        deferred.reject('No ipsum');
       }
 
       return promise;
+    },
+
+    getDataViaHTTP: function (expectedReply) {
+      var pageURL = expectedReply ? 'success-page.html' : 'failure-page.html';
+
+      return $http({
+        method: 'GET',
+        url: pageURL
+      }).then(
+        function (response) {
+          return 'Got the page!';
+        },
+        function (error) {
+          return $q.reject(error);
+        }
+      )
     }
   };
 })
@@ -21,7 +37,7 @@ angular.module('mainModule', [])
 
 .controller('pageController', function ($log, $scope, pageService) {
   $scope.testSuccess = function () {
-    pageService.getData(true)
+    pageService.getDataViaHTTP(true)
       .then(
         function (response) {
           $log.info('testSuccess: obtained data successfully: ', response);
@@ -30,7 +46,7 @@ angular.module('mainModule', [])
   };
 
   $scope.testFailure = function () {
-    pageService.getData(false)
+    pageService.getDataViaHTTP(false)
       .then(
         function (response) {
           // nothing needed for the success
